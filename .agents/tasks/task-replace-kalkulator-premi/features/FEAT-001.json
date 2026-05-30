@@ -2,7 +2,7 @@
   "id": "FEAT-001",
   "type": "feat",
   "description": "Replace the existing MiSmart Health Care (MiUHC) calculator in the Kalkulator Premi tab with a MiSSION Syariah premium calculator. Remove all MiUHC data arrays (PREMI_KONV, PREMI_SYARIAH for health) and the related JS functions. Replace with a new calculator that computes kontribusi for the MiSSION Syariah base product + optional riders (MiSmart Waiver Syariah, MiSmart Critical Care Syariah).",
-  "status": "in_progress",
+  "status": "completed",
   "steps": [
     "1. In /projects/sandbox/Project-mission/index.html, locate the Kalkulator Premi tab content (line ~478, `<!-- Tab 6: Kalkulator Premi -->` through line ~527 before `<!-- Tab 7: Ilustrasi -->`). Replace the entire HTML content of this tab with the new MiSSION Syariah calculator UI.",
     "2. The new tab HTML should contain: (a) Title 'Kalkulator Kontribusi MiSSION Syariah', (b) Brief explanation that MiSSION is Syariah-only, (c) Input controls: Jenis Kelamin (Pria/Wanita), Usia (18-70), Santunan Asuransi Dasar (dropdown: 100jt, 250jt, 500jt, 750jt, 1M, 1.5M, 2M, 3M), Metode Bayar (Tahunan/Semesteran/Kuartalan/Bulanan), (d) Checkbox for MiSmart Waiver Syariah rider, (e) Checkbox for MiSmart Critical Care Syariah rider with santunan selector (min 20jt, max 6x base santunan), (f) Results display area.",
@@ -39,5 +39,5 @@
     "Verify sample data point: search for rate calculations that would produce ~8,750,000 for Wanita age 37 with 1M santunan"
   ],
   "blocked_reason": null,
-  "findings": ""
+  "findings": "All rate data points verified with Node.js calculations. JavaScript syntax validated with node --check. HTML div tags balanced (111/111). No remaining references to PREMI_KONV, PREMI_SYARIAH, switchPremiTab, calculatePremi, populateAgeSelect, premiBuildCard, togglePremiAllPlans. Removed the Konvensional/Syariah toggle since MiSSION is Syariah only."
 }

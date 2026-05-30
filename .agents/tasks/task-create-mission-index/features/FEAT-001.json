@@ -39,5 +39,5 @@
     "Verify file is not truncated by checking it ends with </html>"
   ],
   "blocked_reason": null,
-  "findings": "All verification checks passed. File is 40630 bytes. Node.js validation failed due to environment issue (missing proxy-bootstrap.js) but Python-based validation confirmed all tabs present, WA links correct, FAQ accordion present, DOCTYPE and viewport meta present, Syariah content included. The HTML file is self-contained with no external dependencies."
+  "findings": "All verification checks passed. File is 40630 bytes. Node.js validation failed due to environment issue (missing proxy-bootstrap.js) but Python-based validation confirmed all tabs present, WA links correct, FAQ accordion present, DOCTYPE and viewport meta present, Syariah content included. The HTML file is self-contained with no external dependencies. Review fixes applied: (1) UP is now a user-selectable dropdown with validation against minimum rule, (2) dead akuisisi array removed, (3) table display:block removed and overflow-x:auto wrappers added, (4) COI model updated to exponential curve with age note."
 }

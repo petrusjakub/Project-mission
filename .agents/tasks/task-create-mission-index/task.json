@@ -1,0 +1,14 @@
+{
+  "task_id": "task-create-mission-index",
+  "task_description": "Create a masterpiece-quality index.html for MiSSION (MiSmart Insurance Solution) and MiSSION Syariah products, following the design template of index (17).html. The page should have a sticky WA header for Petrus Jakub, tab-based navigation covering product summary, benefits, riders, investment options, fees, illustration, and FAQ. Content must be written in simple Indonesian for lay people.",
+  "status": "completed",
+  "verification": {
+    "build": "pass",
+    "tests": "pass",
+    "test_quality": "pass",
+    "docker_build": "skipped",
+    "summary": "All HTML structure checks passed. File is 40,630 bytes, valid HTML5, contains all 7 tabs with content, sticky WA banner with correct link, floating WA button, responsive media queries, FAQ accordion, and illustration calculator. Content covers both MiSSION and MiSSION Syariah."
+  },
+  "feature_order": ["FEAT-001"],
+  "blocked_reason": null
+}

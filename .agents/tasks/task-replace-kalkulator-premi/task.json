@@ -1,7 +1,14 @@
 {
   "task_id": "task-replace-kalkulator-premi",
   "task_description": "Replace the MiUHC health insurance calculator in the Kalkulator Premi tab with a proper MiSSION Syariah kontribusi calculator based on user-provided sample data points",
-  "status": "in_progress",
+  "status": "completed",
+  "verification": {
+    "build": "pass",
+    "tests": "pass",
+    "test_quality": "pass",
+    "docker_build": "skipped",
+    "summary": "JavaScript syntax validates cleanly (node --check). All div tags balanced (111/111). All user-provided data points correctly embedded in rate tables. No remaining references to removed MiUHC code."
+  },
   "feature_order": ["FEAT-001"],
   "blocked_reason": null
 }

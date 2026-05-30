@@ -1,0 +1,16 @@
+{
+  "project_type": "Static HTML single-page product landing site for MiSSION Syariah insurance",
+  "language": "HTML/CSS/JavaScript (vanilla, no framework)",
+  "build_system": "None - single static HTML file",
+  "test_framework": "None - manual browser testing",
+  "build_command": "N/A - static HTML file",
+  "test_command": "N/A - validate HTML structure manually",
+  "verification_instructions": "Open /projects/sandbox/Project-mission/index.html in browser and verify Kalkulator Premi tab works correctly with sample data",
+  "snapshot_or_generated_files": null,
+  "setup_instructions": "No setup needed - single HTML file",
+  "environment_constraints": "INTEGRATIONS_ONLY network - no external dependencies needed since this is a self-contained HTML file",
+  "contribution_requirements": "None specified",
+  "key_patterns": "Single-file HTML with inline CSS and JS. Tab navigation system using data-tab attributes. Inline styles in <style> block. Calculator uses IIFE pattern. Card-based UI with .plan-card, .card, .calc-controls classes. All Bahasa Indonesia language.",
+  "relevant_files": ["/projects/sandbox/Project-mission/index.html"],
+  "directory_structure": "Single HTML file (index.html) at /projects/sandbox/Project-mission/ with PDF/XLSX reference docs"
+}

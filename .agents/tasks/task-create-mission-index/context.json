@@ -1,0 +1,24 @@
+{
+  "project_type": "Static HTML single-page product landing page",
+  "language": "HTML/CSS/JavaScript",
+  "build_system": "None - static HTML file, no build step required",
+  "test_framework": "None - manual visual inspection and HTML validation",
+  "build_command": "N/A - static HTML",
+  "test_command": "python3 -c \"import html.parser; p=html.parser.HTMLParser(); f=open('/projects/sandbox/Project-mission/index.html','r'); content=f.read(); print('HTML file size:', len(content), 'bytes'); print('OK' if '</html>' in content else 'INCOMPLETE')\"",
+  "verification_instructions": "1. Verify index.html exists and is valid HTML. 2. Check file is not truncated (contains closing </html> tag). 3. Verify WA link has correct number and message text. 4. Verify all tabs are present and have content.",
+  "snapshot_or_generated_files": null,
+  "setup_instructions": "No setup needed - this is a static HTML file project",
+  "environment_constraints": "INTEGRATIONS_ONLY network - cannot install packages. Cannot install openpyxl or other xlsx readers. Must use zipfile+xml.etree for xlsx parsing if needed. Python3.11 with standard library is available. Node.js v22 available for validation.",
+  "contribution_requirements": "Output must be a single index.html file following the same design language as index (17).html reference template",
+  "key_patterns": "Reference template uses: single-file HTML with inline CSS and JS, sticky WA banner at top, tab-based navigation, cards with green Manulife branding (#00a758, #006838), FAQ accordion, responsive design, floating WA button, plan cards grid for calculator",
+  "relevant_files": [
+    "index (17).html - reference template (MiUHC product page)",
+    "Brosur MiSmart Insurance Solution (MiSSION).xlsx - konvensional brochure data",
+    "A. Brosur MiSmart Insurance Solution Syariah (MiSSION Syariah) (3).xlsx - syariah brochure data",
+    "MiSmart Insurance Solution - Ringkasan Informasi Produk dan Layanan Versi Umum.xlsx - detailed product info",
+    "MiSmart Insurance Solution Syariah (MiSSION Syariah) - Ringkasan Informasi Produk dan Layanan Versi Umum.xlsx - syariah product info",
+    "C. Ilustrasi Mission - UP1M CI1M - Usia 30 Premi 16jt per thn.xlsx - illustration example",
+    "D. Materi Mission (Man Academy).xlsx - training material with investment fund data"
+  ],
+  "directory_structure": "Flat repository root with PDF/XLSX product documents and one reference HTML file. Output index.html goes in the same root directory."
+}

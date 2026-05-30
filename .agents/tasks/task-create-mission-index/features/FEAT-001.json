@@ -1,0 +1,43 @@
+{
+  "id": "FEAT-001",
+  "type": "feat",
+  "description": "Create a complete, masterpiece-quality index.html for MiSSION and MiSSION Syariah products following the design template of index (17).html. The file must be a single self-contained HTML file with inline CSS and JavaScript, covering all product information from the repository documents.",
+  "status": "in_progress",
+  "steps": [
+    "Create /projects/sandbox/Project-mission/index.html as a single self-contained HTML file following the exact CSS/JS structure of index (17).html",
+    "Implement sticky WA banner at top: 'Petrus Jakub Partner Bisnis Manulife' + WA SVG logo + '087781896087', linking to https://wa.me/6287781896087?text=Pak%20Petrus%2C%20saya%20mau%20tanya%20soal%20Asuransi%20Manulife%20Produk%20Mission",
+    "Header section: 'MiSmart Insurance Solution (MiSSION)' with subtitle 'Asuransi Jiwa Unit Link dari PT Asuransi Jiwa Manulife Indonesia'",
+    "Tab navigation with tabs: Ringkasan Produk, Manfaat, Asuransi Tambahan, Pilihan Investasi, Biaya-biaya, Ilustrasi, FAQ",
+    "Tab 1 - Ringkasan Produk: Explain MiSSION as unit-link life insurance (proteksi + investasi + kesehatan). Cover both Konvensional and Syariah versions. Key features: premi mulai Rp4jt/tahun, UP optimal, alokasi investasi 70% tahun 1-3 lalu 100% tahun 4+, manfaat loyalitas (50% premi dasar di tahun 10, 700% di tahun 25), usia masuk 30 hari-70 tahun, masa pertanggungan hingga usia 110 tahun. Use simple language for lay people.",
+    "Tab 2 - Manfaat: Detail the 3 main benefits: (1) Manfaat Meninggal Dunia 100% UP + Nilai Polis, (2) Manfaat Akhir Masa Pertanggungan = Nilai Polis, (3) Manfaat Loyalitas. Also mention Solusi 3-in-1: Proteksi, Investasi, Kesehatan. Include table comparing key features.",
+    "Tab 3 - Asuransi Tambahan (Riders): List all 10 riders with simple descriptions: MiSmart Health Care (rawat inap as charged, plan Sapphire/Jade/Jade ID/Topaz/Topaz ID/Emerald/Ruby/Diamond with limits 2M-20M per tahun, No Claim Bonus 10%/thn maks 50%, Annual Limit Booster 1M-15M), MiSmart Critical Care (56 penyakit kritis, hingga 300% UP), MiSmart Waiver Premium (49 penyakit kritis, pembebasan premi), MiSmart Early Stage Critical Care, MiSmart Medicare Plus, MiSmart Payor Benefit Plus, MiSmart Yearly Renewable Term, MiSmart Accidental Death and Disability, MiSmart Income Replacement, MiSmart Spouse Waiver. Include the MiSmart Health Care benefit table showing plans (Sapphire through Diamond) with their coverage areas and limits.",
+    "Tab 4 - Pilihan Investasi: Display the 17+ investment fund options in a table format. Group by risk level (Rendah: Pasar Uang; Menengah: Pendapatan Tetap; Tinggi: Ekuitas). Show fund name, asset allocation, risk level, and management fee. Mention alokasi investasi: 70% year 1-3, 100% year 4+ for premi dasar; 100% always for top-up.",
+    "Tab 5 - Biaya-biaya: List all fees clearly: Biaya Akuisisi/Penjualan (30% year 1-3, 0% year 4+), Biaya Administrasi Bulanan (Rp37,500/USD3.75 per bulan), Biaya Pertanggungan (varies by age/gender/UP), Biaya Pengelolaan Dana (1.25%-2.5% per tahun depending on fund), Biaya Pengambilan Unit (2% year 1-2, 1.5% year 3, 1% year 4, 0.5% year 5, 0% year 6+), Biaya Pengalihan Dana (free 4x/year, Rp100,000 after). Present in clear tables.",
+    "Tab 6 - Ilustrasi: Create an interactive illustration calculator. User inputs: Usia (30 default), Premi per tahun (dropdown: 4jt, 8jt, 12jt, 16jt), show projected policy values at year 5, 10, 15, 20, 25 using simplified projections based on the illustration data. Include disclaimer that values are illustrative only. Show the example from document: Usia 30, Premi 16jt/tahun, UP 1M, CI 1M.",
+    "Tab 7 - FAQ: Create FAQ accordion with questions: Apa itu MiSSION?, Apa bedanya MiSSION dan MiSSION Syariah?, Berapa minimal premi?, Apa itu unit link?, Bagaimana cara bayar premi?, Apa itu Manfaat Loyalitas?, Apa saja risiko investasi?, Berapa usia masuk?, Bagaimana jika tidak bisa bayar premi (Cuti Premi)?, Apa itu MiSmart Health Care?. Write answers in simple Indonesian for lay people.",
+    "Implement floating WA button at bottom-right with same link as banner",
+    "Ensure responsive design works on mobile (use same media queries as reference)",
+    "Use same green Manulife color scheme (#00a758 primary, #006838 dark, #e8f5e9 light background)",
+    "All content must use simple, easy-to-understand Indonesian language suitable for orang awam (lay people)",
+    "For Syariah differences, note: uses akad Wakalah bil Ujrah and Tabarru, contributions instead of premi, surplus underwriting sharing, investment in Shariah-compliant instruments only"
+  ],
+  "acceptance_criteria": [
+    "index.html file exists at /projects/sandbox/Project-mission/index.html",
+    "File is valid HTML5 with proper DOCTYPE, charset, and viewport meta tags",
+    "Sticky WA banner shows 'Petrus Jakub Partner Bisnis Manulife' + WA logo + 087781896087 and links to correct WA URL with message 'Pak Petrus, saya mau tanya soal Asuransi Manulife Produk Mission'",
+    "All 7 tabs are present and functional with JavaScript tab switching",
+    "FAQ accordion opens/closes on click",
+    "Content covers both MiSSION Konvensional and Syariah",
+    "Floating WA button is present with correct link",
+    "File is self-contained (no external CSS/JS dependencies)",
+    "Responsive design works (has mobile media queries)",
+    "Content uses simple Indonesian language appropriate for lay people"
+  ],
+  "verification": [
+    "Run: python3 -c \"f=open('/projects/sandbox/Project-mission/index.html','r'); c=f.read(); print('Size:', len(c)); assert '</html>' in c, 'Incomplete HTML'; assert 'wa.me/6287781896087' in c, 'Missing WA link'; assert 'Petrus Jakub' in c, 'Missing name'; assert 'MiSSION' in c or 'Mission' in c, 'Missing product name'; assert 'tab-content' in c, 'Missing tabs'; assert 'faq' in c.lower(), 'Missing FAQ'; print('ALL CHECKS PASSED')\"",
+    "Run: node -e \"const fs=require('fs'); const h=fs.readFileSync('/projects/sandbox/Project-mission/index.html','utf8'); const tabs=['ringkasan','manfaat','rider','investasi','biaya','ilustrasi','faq']; let ok=true; tabs.forEach(t=>{if(!h.includes(t)){console.log('Missing tab:',t);ok=false}}); if(ok)console.log('All tabs present');\"",
+    "Verify file is not truncated by checking it ends with </html>"
+  ],
+  "blocked_reason": null,
+  "findings": ""
+}

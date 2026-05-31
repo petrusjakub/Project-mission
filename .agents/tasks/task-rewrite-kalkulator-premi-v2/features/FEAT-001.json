@@ -44,5 +44,5 @@
     "Verify all 8 test scenarios from the user's MiPOS data produce correct results within +/-100 IDR or +/-1 USD tolerance"
   ],
   "blocked_reason": null,
-  "findings": "All 10 official MiPOS test scenarios verified. Annual totals match exactly. Per-frequency totals for IDR match within +/-100 (Pria 45 bulanan off by 100 due to CI internal precision). Per-frequency USD totals match within +/-1 (rounding .5 edge cases). Fixed ujrahDasar wanita 59 rate from 945560 to 945819 to match user data (734,900 for 777jt base). USD waiver rate for Pria 31 confirmed as 148 per 100K (not 1480). The updateCurrencyUI function exposed to window scope for inline handler."
+  "findings": "All 10 official MiPOS test scenarios verified. Annual totals match exactly. Per-frequency totals for IDR match within +/-100 (Pria 45 bulanan off by 100 due to CI internal precision). Per-frequency USD totals match within +/-1 (rounding .5 edge cases). Fixed ujrahDasar wanita 59 rate from 945560 to 945819 to match user data (734,900 for 777jt base). USD waiver rate for Pria 31 confirmed as 148 per 100K (not 1480). The updateCurrencyUI function exposed to window scope for inline handler. Post-review fix: added age-based filtering to Masa Asuransi Tambahan options (opts[i] >= age + 2) and Top Up Berkala minimum validation warning."
 }

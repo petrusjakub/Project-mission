@@ -2,7 +2,7 @@
   "id": "FEAT-001",
   "type": "fix",
   "description": "Completely rewrite the Kalkulator Premi tab in index.html to match official MiPOS data precisely. Replace the entire tab-kalkulator section HTML and its JavaScript IIFE with a new implementation supporting IDR/USD currencies, free-text santunan input, correct rate tables, proper rounding, Top Up Berkala, Masa Pembayaran Kontribusi display, and exponential interpolation.",
-  "status": "in_progress",
+  "status": "completed",
   "steps": [
     "Replace the HTML content of <div class='tab-content' id='tab-kalkulator'> (lines 479 onwards until the closing </div> before tab-ilustrasi) with new calculator UI containing: (1) Mata Uang toggle IDR/USD, (2) Jenis Kelamin select, (3) Usia Masuk select 18-70, (4) Santunan Asuransi free-text input with validation (IDR min 100jt max 99.9M, USD min 40000), (5) Mode Pembayaran select, (6) Top Up Berkala optional input with per-frequency minimums (IDR: 1jt/500rb/250rb/100rb for tahunan/sem/kuar/bul; USD: 100/50/25/10), (7) Masa Pembayaran Kontribusi display (110-usia, greyed out), (8) Pilihan Masa Asuransi Tambahan select (default 'Sama seperti Kontribusi Dasar', adds 60/70/80/90 options when waiver is checked), (9) Checkbox MiSmart Critical Care Syariah with santunan input (IDR min 20jt, USD min 2000, max 3x base), (10) Checkbox MiSmart Waiver Syariah",
     "Replace the entire IIFE JavaScript block for the calculator (starting from '// ============ KALKULATOR KONTRIBUSI MiSSION Syariah ============') with new implementation that uses EXACT verified rate data points and exponential interpolation between them",
@@ -44,5 +44,5 @@
     "Verify all 8 test scenarios from the user's MiPOS data produce correct results within +/-100 IDR or +/-1 USD tolerance"
   ],
   "blocked_reason": null,
-  "findings": ""
+  "findings": "All 10 official MiPOS test scenarios verified. Annual totals match exactly. Per-frequency totals for IDR match within +/-100 (Pria 45 bulanan off by 100 due to CI internal precision). Per-frequency USD totals match within +/-1 (rounding .5 edge cases). Fixed ujrahDasar wanita 59 rate from 945560 to 945819 to match user data (734,900 for 777jt base). USD waiver rate for Pria 31 confirmed as 148 per 100K (not 1480). The updateCurrencyUI function exposed to window scope for inline handler."
 }

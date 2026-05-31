@@ -490,6 +490,13 @@ Tahunan, Semesteran (6 bulan), Kuartalan (3 bulan), atau Bulanan. Pilih yang pal
 <div class="calc-controls" style="flex-direction:column;align-items:stretch">
 <div style="display:flex;flex-wrap:wrap;gap:15px">
 <div class="calc-control-group">
+<label>Mata Uang</label>
+<select id="missionCurrency" onchange="updateCurrencyUI();hitungMission()">
+<option value="IDR">IDR</option>
+<option value="USD">USD</option>
+</select>
+</div>
+<div class="calc-control-group">
 <label>Jenis Kelamin</label>
 <select id="missionGender" onchange="hitungMission()">
 <option value="pria">Pria</option>
@@ -502,20 +509,12 @@ Tahunan, Semesteran (6 bulan), Kuartalan (3 bulan), atau Bulanan. Pilih yang pal
 </select>
 </div>
 <div class="calc-control-group">
-<label>Santunan Asuransi Dasar</label>
-<select id="missionSantunan" onchange="hitungMission()">
-<option value="100000000">Rp 100 Juta</option>
-<option value="250000000">Rp 250 Juta</option>
-<option value="500000000">Rp 500 Juta</option>
-<option value="750000000">Rp 750 Juta</option>
-<option value="1000000000" selected>Rp 1 Milyar</option>
-<option value="1500000000">Rp 1,5 Milyar</option>
-<option value="2000000000">Rp 2 Milyar</option>
-<option value="3000000000">Rp 3 Milyar</option>
-</select>
+<label>Santunan Asuransi</label>
+<input type="text" id="missionSantunan" value="1.000.000.000" onchange="hitungMission()" onkeyup="formatSantunanInput(this)" style="padding:8px 12px;border:2px solid #e0e0e0;border-radius:6px;font-size:.95rem;width:180px">
+<small id="missionSantunanHint" style="color:#666;font-size:.75rem;margin-top:2px;display:block">Min: Rp 100.000.000</small>
 </div>
 <div class="calc-control-group">
-<label>Metode Bayar</label>
+<label>Mode Pembayaran</label>
 <select id="missionFreq" onchange="hitungMission()">
 <option value="1">Tahunan</option>
 <option value="2">Semesteran</option>
@@ -523,33 +522,44 @@ Tahunan, Semesteran (6 bulan), Kuartalan (3 bulan), atau Bulanan. Pilih yang pal
 <option value="12">Bulanan</option>
 </select>
 </div>
+<div class="calc-control-group">
+<label>Top Up Berkala</label>
+<input type="text" id="missionTopUp" value="0" onchange="hitungMission()" onkeyup="formatSantunanInput(this)" style="padding:8px 12px;border:2px solid #e0e0e0;border-radius:6px;font-size:.95rem;width:140px">
+<small id="missionTopUpHint" style="color:#666;font-size:.75rem;margin-top:2px;display:block">Min: Rp 1.000.000 (Tahunan)</small>
+</div>
+<div class="calc-control-group">
+<label>Masa Pembayaran Kontribusi</label>
+<input type="text" id="missionMasaBayar" value="79" readonly disabled style="padding:8px 12px;border:2px solid #e0e0e0;border-radius:6px;font-size:.95rem;width:80px;background:#f0f0f0;color:#666">
+<small style="color:#666;font-size:.75rem;margin-top:2px;display:block">110 - Usia (tahun)</small>
+</div>
+<div class="calc-control-group">
+<label>Pilihan Masa Asuransi Tambahan</label>
+<select id="missionMasaRider" onchange="hitungMission()">
+<option value="sama">Sama seperti Kontribusi Dasar</option>
+</select>
+</div>
 </div>
 
 <!-- Rider Options -->
 <div style="margin-top:10px;padding-top:15px;border-top:1px solid #e0e0e0">
-<p style="font-size:.8rem;font-weight:600;color:#00a758;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px">Rider (Asuransi Tambahan)</p>
-<div style="display:flex;flex-direction:column;gap:10px">
-<label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:.95rem">
-<input type="checkbox" id="missionWaiver" onchange="hitungMission()" style="width:18px;height:18px;accent-color:#00a758">
-MiSmart Waiver Syariah <span style="font-size:.8rem;color:#666">(pembebasan kontribusi jika sakit kritis)</span>
-</label>
-<div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px">
+<p style="font-size:.8rem;font-weight:600;color:#00a758;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px">Opsi Proteksi Tambahan (Rider)</p>
+<div style="display:flex;flex-direction:column;gap:12px">
+<div>
 <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:.95rem">
 <input type="checkbox" id="missionCI" onchange="hitungMission()" style="width:18px;height:18px;accent-color:#00a758">
 MiSmart Critical Care Syariah <span style="font-size:.8rem;color:#666">(santunan penyakit kritis)</span>
 </label>
-<select id="missionCISantunan" onchange="hitungMission()" style="padding:6px 10px;border:2px solid #e0e0e0;border-radius:6px;font-size:.85rem">
-<option value="20000000">Rp 20 Juta</option>
-<option value="50000000">Rp 50 Juta</option>
-<option value="100000000">Rp 100 Juta</option>
-<option value="250000000">Rp 250 Juta</option>
-<option value="500000000">Rp 500 Juta</option>
-<option value="750000000">Rp 750 Juta</option>
-<option value="1000000000" selected>Rp 1 Milyar</option>
-<option value="1500000000">Rp 1,5 Milyar</option>
-<option value="2000000000">Rp 2 Milyar</option>
-<option value="3000000000">Rp 3 Milyar</option>
-</select>
+<div id="missionCIInputWrap" style="margin-top:8px;margin-left:26px;display:none">
+<label style="font-size:.85rem;color:#333">Santunan CI:</label>
+<input type="text" id="missionCISantunan" value="1.000.000.000" onchange="hitungMission()" onkeyup="formatSantunanInput(this)" style="padding:6px 10px;border:2px solid #e0e0e0;border-radius:6px;font-size:.85rem;width:160px;margin-left:8px">
+<small id="missionCIHint" style="color:#666;font-size:.75rem;margin-left:8px">Min: Rp 20.000.000, Max: 3x Santunan Dasar</small>
+</div>
+</div>
+<div>
+<label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:.95rem">
+<input type="checkbox" id="missionWaiver" onchange="hitungMission()" style="width:18px;height:18px;accent-color:#00a758">
+MiSmart Waiver Syariah <span style="font-size:.8rem;color:#666">(pembebasan kontribusi jika sakit kritis/cacat tetap total)</span>
+</label>
 </div>
 </div>
 </div>
@@ -784,58 +794,92 @@ function updateIlustrasi(){
 
 // ============ KALKULATOR KONTRIBUSI MiSSION Syariah ============
 (function(){
-// Rate data per 1M santunan (annual) - known data points
-// Format: {age: rate}
-var RATES = {
+// IDR Rate tables per 1 Milyar (1,000,000,000) santunan, annual
+var RATES_IDR = {
     kontribusiDasar: {
-        pria: {18: 5800000, 25: 6500000, 30: 7900000, 31: 8140000, 35: 8800000, 40: 10200000, 45: 12000000, 50: 14500000, 55: 17500000, 60: 21500000, 65: 26500000, 70: 33000000},
-        wanita: {18: 5500000, 25: 6200000, 30: 7600000, 35: 8500000, 37: 8750000, 40: 9380000, 45: 10800000, 50: 13000000, 55: 15800000, 60: 19500000, 65: 24000000, 70: 30000000}
+        pria: {31: 8140000, 45: 14830000},
+        wanita: {37: 8750000, 59: 30970000}
     },
     ujrahDasar: {
-        pria: {18: 70000, 25: 90000, 30: 120000, 31: 130000, 35: 150000, 40: 190000, 45: 250000, 50: 330000, 55: 440000, 60: 580000, 65: 770000, 70: 1020000},
-        wanita: {18: 65000, 25: 85000, 30: 110000, 35: 145000, 37: 158300, 40: 199200, 45: 260000, 50: 340000, 55: 450000, 60: 590000, 65: 780000, 70: 1030000}
-    },
-    waiver: {
-        pria: {18: 280000, 25: 380000, 30: 510000, 31: 541300, 35: 620000, 40: 780000, 45: 980000, 50: 1250000, 55: 1600000, 60: 2050000, 65: 2650000, 70: 3400000},
-        wanita: {18: 260000, 25: 360000, 30: 490000, 35: 630000, 37: 678900, 40: 802100, 45: 1000000, 50: 1280000, 55: 1640000, 60: 2100000, 65: 2700000, 70: 3500000}
-    },
-    waiverUjrah: {
-        pria: {18: 3000, 25: 5500, 30: 8500, 31: 9700, 35: 13000, 40: 20000, 45: 32000, 50: 50000, 55: 78000, 60: 120000, 65: 185000, 70: 280000},
-        wanita: {18: 3500, 25: 6000, 30: 10000, 35: 18000, 37: 22000, 40: 34400, 45: 55000, 50: 85000, 55: 130000, 60: 195000, 65: 290000, 70: 430000}
+        pria: {31: 130000, 45: 350000},
+        wanita: {37: 158308, 59: 945819}
     },
     ci: {
-        pria: {18: 3200000, 25: 5000000, 30: 7800000, 31: 8640000, 35: 10500000, 40: 13500000, 45: 17500000, 50: 23000000, 55: 30000000, 60: 39000000, 65: 51000000, 70: 66000000},
-        wanita: {18: 4500000, 25: 7000000, 30: 10500000, 35: 13000000, 37: 14540000, 40: 16590000, 45: 20500000, 50: 26000000, 55: 33000000, 60: 42000000, 65: 54000000, 70: 70000000}
+        pria: {31: 8640000, 45: 24630000},
+        wanita: {37: 14540000, 59: 40860000}
     },
     ciUjrah: {
-        pria: {18: 50000, 25: 80000, 30: 130000, 31: 152500, 35: 200000, 40: 300000, 45: 450000, 50: 680000, 55: 1000000, 60: 1500000, 65: 2200000, 70: 3300000},
-        wanita: {18: 70000, 25: 120000, 30: 200000, 35: 310000, 37: 361700, 40: 480000, 45: 700000, 50: 1050000, 55: 1550000, 60: 2300000, 65: 3400000, 70: 5000000}
+        pria: {31: 152500, 45: 617500},
+        wanita: {37: 361290, 59: 1808288}
+    },
+    waiver: {
+        pria: {31: 1115900, 45: 5442400},
+        wanita: {37: 840308, 59: 9615187}
+    },
+    waiverUjrah: {
+        pria: {31: 20100, 45: 216500},
+        wanita: {37: 27231, 59: 425611}
     }
 };
 
-function interpolateRate(rateTable, age) {
-    if (rateTable[age] !== undefined) return rateTable[age];
-    var ages = Object.keys(rateTable).map(Number).sort(function(a,b){return a-b;});
-    if (age <= ages[0]) return rateTable[ages[0]];
-    if (age >= ages[ages.length-1]) return rateTable[ages[ages.length-1]];
-    var lower = ages[0], upper = ages[ages.length-1];
-    for (var i = 0; i < ages.length - 1; i++) {
-        if (ages[i] <= age && ages[i+1] >= age) {
-            lower = ages[i];
-            upper = ages[i+1];
-            break;
-        }
+// USD Rate tables per 100,000 santunan, annual
+var RATES_USD = {
+    kontribusiDasar: {
+        pria: {31: 814, 45: 1482.22},
+        wanita: {37: 875, 59: 3097}
+    },
+    ujrahDasar: {
+        pria: {31: 13, 45: 35},
+        wanita: {37: 15.825, 59: 94.58}
+    },
+    ci: {
+        pria: {31: 864, 45: 2480},
+        wanita: {37: 1466.67, 59: 4086.57}
+    },
+    ciUjrah: {
+        pria: {31: 15.25, 45: 60.8},
+        wanita: {37: 36.33, 59: 180.84}
+    },
+    waiver: {
+        pria: {31: 148, 45: 286.67},
+        wanita: {37: 102.5, 59: 774.79}
+    },
+    waiverUjrah: {
+        pria: {31: 3, 45: 13.33},
+        wanita: {37: 5, 59: 34.19}
     }
-    var ratio = (age - lower) / (upper - lower);
-    return Math.round(rateTable[lower] + ratio * (rateTable[upper] - rateTable[lower]));
+};
+
+// Exponential interpolation between 2 known data points
+function expInterpolate(rateTable, age) {
+    var ages = Object.keys(rateTable).map(Number).sort(function(a,b){return a-b;});
+    var age1 = ages[0], age2 = ages[1];
+    var rate1 = rateTable[age1], rate2 = rateTable[age2];
+    if (age === age1) return rate1;
+    if (age === age2) return rate2;
+    return rate1 * Math.pow(rate2 / rate1, (age - age1) / (age2 - age1));
 }
 
-function roundTo100(val) {
+// Rounding helpers
+function roundIDR(val) {
     return Math.round(val / 100) * 100;
 }
 
+function roundUSD(val) {
+    return Math.round(val);
+}
+
 function formatRupiah(val) {
-    return 'Rp ' + val.toLocaleString('id-ID');
+    return 'Rp ' + Math.round(val).toLocaleString('id-ID');
+}
+
+function formatUSD(val) {
+    return 'USD ' + Math.round(val).toLocaleString('id-ID');
+}
+
+function formatUSDDecimal(val) {
+    var parts = val.toFixed(2).split('.');
+    return 'USD ' + parseInt(parts[0]).toLocaleString('id-ID') + ',' + parts[1];
 }
 
 function getFreqLabel(freq) {
@@ -845,6 +889,31 @@ function getFreqLabel(freq) {
     if (freq == 12) return 'Bulanan';
     return '';
 }
+
+function parseSantunanValue(str) {
+    if (!str) return 0;
+    return parseInt(str.replace(/[.\s]/g, '').replace(/,/g, ''), 10) || 0;
+}
+
+function formatNumberIDR(val) {
+    return val.toLocaleString('id-ID');
+}
+
+function formatNumberUSD(val) {
+    return val.toLocaleString('id-ID');
+}
+
+window.formatSantunanInput = function(el) {
+    var currency = document.getElementById('missionCurrency').value;
+    var raw = el.value.replace(/[^\d]/g, '');
+    if (!raw) { el.value = '0'; return; }
+    var num = parseInt(raw, 10);
+    if (currency === 'IDR') {
+        el.value = num.toLocaleString('id-ID');
+    } else {
+        el.value = num.toLocaleString('id-ID');
+    }
+};
 
 function populateMissionUsia() {
     var sel = document.getElementById('missionUsia');
@@ -859,127 +928,242 @@ function populateMissionUsia() {
     }
 }
 
-function updateCIMax() {
-    var baseSantunan = parseInt(document.getElementById('missionSantunan').value);
-    var ciSel = document.getElementById('missionCISantunan');
-    var maxCI = baseSantunan * 6;
-    var opts = ciSel.options;
-    for (var i = 0; i < opts.length; i++) {
-        var val = parseInt(opts[i].value);
-        opts[i].disabled = val > maxCI;
+function updateMasaBayar() {
+    var age = parseInt(document.getElementById('missionUsia').value) || 31;
+    var masaBayar = 110 - age;
+    document.getElementById('missionMasaBayar').value = masaBayar;
+}
+
+window.updateCurrencyUI = function() {
+    var currency = document.getElementById('missionCurrency').value;
+    var santunanInput = document.getElementById('missionSantunan');
+    var santunanHint = document.getElementById('missionSantunanHint');
+    var topUpHint = document.getElementById('missionTopUpHint');
+    var ciHint = document.getElementById('missionCIHint');
+    var ciInput = document.getElementById('missionCISantunan');
+    var freq = parseInt(document.getElementById('missionFreq').value);
+
+    if (currency === 'IDR') {
+        santunanInput.value = '1.000.000.000';
+        santunanHint.textContent = 'Min: Rp 100.000.000';
+        ciInput.value = '1.000.000.000';
+        ciHint.textContent = 'Min: Rp 20.000.000, Max: 3x Santunan Dasar';
+        updateTopUpHint('IDR', freq);
+    } else {
+        santunanInput.value = '100.000';
+        santunanHint.textContent = 'Min: USD 40.000';
+        ciInput.value = '100.000';
+        ciHint.textContent = 'Min: USD 2.000, Max: 3x Santunan Dasar';
+        updateTopUpHint('USD', freq);
     }
-    if (parseInt(ciSel.value) > maxCI) {
-        for (var i = opts.length - 1; i >= 0; i--) {
-            if (parseInt(opts[i].value) <= maxCI) {
-                ciSel.value = opts[i].value;
-                break;
-            }
-        }
+    document.getElementById('missionTopUp').value = '0';
+};
+
+function updateTopUpHint(currency, freq) {
+    var hint = document.getElementById('missionTopUpHint');
+    if (currency === 'IDR') {
+        var mins = {1: '1.000.000', 2: '500.000', 4: '250.000', 12: '100.000'};
+        hint.textContent = 'Min: Rp ' + (mins[freq] || '1.000.000') + ' (' + getFreqLabel(freq) + ')';
+    } else {
+        var mins = {1: '100', 2: '50', 4: '25', 12: '10'};
+        hint.textContent = 'Min: USD ' + (mins[freq] || '100') + ' (' + getFreqLabel(freq) + ')';
     }
 }
 
+function updateMasaRiderOptions() {
+    var sel = document.getElementById('missionMasaRider');
+    var waiverChecked = document.getElementById('missionWaiver').checked;
+    var currentVal = sel.value;
+    sel.innerHTML = '<option value="sama">Sama seperti Kontribusi Dasar</option>';
+    if (waiverChecked) {
+        var opts = [60, 70, 80, 90];
+        for (var i = 0; i < opts.length; i++) {
+            var o = document.createElement('option');
+            o.value = opts[i];
+            o.textContent = opts[i];
+            sel.appendChild(o);
+        }
+    }
+    // Try to restore previous selection
+    var found = false;
+    for (var i = 0; i < sel.options.length; i++) {
+        if (sel.options[i].value === currentVal) { sel.value = currentVal; found = true; break; }
+    }
+    if (!found) sel.value = 'sama';
+}
+
 window.hitungMission = function() {
-    updateCIMax();
+    var currency = document.getElementById('missionCurrency').value;
     var gender = document.getElementById('missionGender').value;
     var age = parseInt(document.getElementById('missionUsia').value);
-    var santunan = parseInt(document.getElementById('missionSantunan').value);
+    var santunanRaw = parseSantunanValue(document.getElementById('missionSantunan').value);
     var freq = parseInt(document.getElementById('missionFreq').value);
+    var topUpRaw = parseSantunanValue(document.getElementById('missionTopUp').value);
     var waiverChecked = document.getElementById('missionWaiver').checked;
     var ciChecked = document.getElementById('missionCI').checked;
-    var ciSantunan = parseInt(document.getElementById('missionCISantunan').value);
+    var ciSantunanRaw = parseSantunanValue(document.getElementById('missionCISantunan').value);
 
-    var multiplier = santunan / 1000000000; // relative to 1M (1 milyar)
+    // Update dependent UI
+    updateMasaBayar();
+    updateMasaRiderOptions();
+    updateTopUpHint(currency, freq);
 
-    // Base rates
-    var kontribusiDasarAnnual = roundTo100(interpolateRate(RATES.kontribusiDasar[gender], age) * multiplier);
-    var ujrahDasarAnnual = roundTo100(interpolateRate(RATES.ujrahDasar[gender], age) * multiplier);
+    // Show/hide CI input
+    document.getElementById('missionCIInputWrap').style.display = ciChecked ? 'block' : 'none';
 
-    // Apply frequency
-    var kontribusiDasar = roundTo100(kontribusiDasarAnnual / freq);
-    var ujrahDasar = roundTo100(ujrahDasarAnnual / freq);
-
-    var totalAnnual = kontribusiDasarAnnual;
-    var totalUjrahAnnual = ujrahDasarAnnual;
-
-    // Waiver
-    var waiverKontribusi = 0, waiverUjrah = 0;
-    if (waiverChecked) {
-        var waiverAnnual = roundTo100(interpolateRate(RATES.waiver[gender], age) * multiplier);
-        var waiverUjrahAnnual = roundTo100(interpolateRate(RATES.waiverUjrah[gender], age) * multiplier);
-        waiverKontribusi = roundTo100(waiverAnnual / freq);
-        waiverUjrah = roundTo100(waiverUjrahAnnual / freq);
-        totalAnnual += waiverAnnual;
-        totalUjrahAnnual += waiverUjrahAnnual;
+    // Validate santunan
+    var minSantunan = currency === 'IDR' ? 100000000 : 40000;
+    if (santunanRaw < minSantunan) {
+        document.getElementById('missionCalcResults').innerHTML = '<div class="calc-info-box" style="margin-top:5px;border-color:#e74c3c"><p style="color:#e74c3c">Santunan Asuransi minimum adalah ' + (currency === 'IDR' ? 'Rp 100.000.000' : 'USD 40.000') + '</p></div>';
+        return;
     }
 
-    // Critical Care
-    var ciKontribusi = 0, ciUjrah = 0;
+    // Validate CI santunan
+    var minCI = currency === 'IDR' ? 20000000 : 2000;
+    var maxCI = santunanRaw * 3;
     if (ciChecked) {
-        var ciMultiplier = ciSantunan / 1000000000;
-        var ciAnnual = roundTo100(interpolateRate(RATES.ci[gender], age) * ciMultiplier);
-        var ciUjrahAnnual = roundTo100(interpolateRate(RATES.ciUjrah[gender], age) * ciMultiplier);
-        ciKontribusi = roundTo100(ciAnnual / freq);
-        ciUjrah = roundTo100(ciUjrahAnnual / freq);
-        totalAnnual += ciAnnual;
-        totalUjrahAnnual += ciUjrahAnnual;
+        if (ciSantunanRaw < minCI) ciSantunanRaw = minCI;
+        if (ciSantunanRaw > maxCI) ciSantunanRaw = maxCI;
     }
 
-    var totalKontribusi = roundTo100(totalAnnual / freq);
-    var totalUjrah = roundTo100(totalUjrahAnnual / freq);
-    var grandTotal = totalKontribusi + totalUjrah;
+    // Select rate tables
+    var RATES = currency === 'IDR' ? RATES_IDR : RATES_USD;
+    var baseUnit = currency === 'IDR' ? 1000000000 : 100000;
+    var multiplier = santunanRaw / baseUnit;
+    var ciMultiplier = ciSantunanRaw / baseUnit;
 
+    // Calculate annual values
+    var kontribusiDasarAnnualRaw = expInterpolate(RATES.kontribusiDasar[gender], age) * multiplier;
+    var ujrahDasarAnnualRaw = expInterpolate(RATES.ujrahDasar[gender], age) * multiplier;
+
+    var kontribusiDasarAnnual, ujrahDasarAnnual;
+    if (currency === 'IDR') {
+        kontribusiDasarAnnual = roundIDR(kontribusiDasarAnnualRaw);
+        ujrahDasarAnnual = roundIDR(ujrahDasarAnnualRaw);
+    } else {
+        kontribusiDasarAnnual = roundUSD(kontribusiDasarAnnualRaw);
+        ujrahDasarAnnual = ujrahDasarAnnualRaw; // USD ujrah keeps decimals
+    }
+
+    // CI
+    var ciKontribusiAnnual = 0, ciUjrahAnnual = 0;
+    if (ciChecked) {
+        var ciKontribusiRaw = expInterpolate(RATES.ci[gender], age) * ciMultiplier;
+        var ciUjrahRaw = expInterpolate(RATES.ciUjrah[gender], age) * ciMultiplier;
+        if (currency === 'IDR') {
+            ciKontribusiAnnual = roundIDR(ciKontribusiRaw);
+            ciUjrahAnnual = roundIDR(ciUjrahRaw);
+        } else {
+            ciKontribusiAnnual = roundUSD(ciKontribusiRaw);
+            ciUjrahAnnual = ciUjrahRaw;
+        }
+    }
+
+    // Waiver (based on BASE santunan)
+    var waiverKontribusiAnnual = 0, waiverUjrahAnnual = 0;
+    if (waiverChecked) {
+        var waiverKontribusiRaw = expInterpolate(RATES.waiver[gender], age) * multiplier;
+        var waiverUjrahRaw = expInterpolate(RATES.waiverUjrah[gender], age) * multiplier;
+        if (currency === 'IDR') {
+            waiverKontribusiAnnual = roundIDR(waiverKontribusiRaw);
+            waiverUjrahAnnual = roundIDR(waiverUjrahRaw);
+        } else {
+            waiverKontribusiAnnual = roundUSD(waiverKontribusiRaw);
+            waiverUjrahAnnual = waiverUjrahRaw;
+        }
+    }
+
+    // Per-frequency calculation (round each component individually, then sum)
+    var kontribusiDasarFreq, ciKontribusiFreq, waiverKontribusiFreq;
+    if (currency === 'IDR') {
+        kontribusiDasarFreq = roundIDR(kontribusiDasarAnnual / freq);
+        ciKontribusiFreq = ciChecked ? roundIDR(ciKontribusiAnnual / freq) : 0;
+        waiverKontribusiFreq = waiverChecked ? roundIDR(waiverKontribusiAnnual / freq) : 0;
+    } else {
+        kontribusiDasarFreq = roundUSD(kontribusiDasarAnnual / freq);
+        ciKontribusiFreq = ciChecked ? roundUSD(ciKontribusiAnnual / freq) : 0;
+        waiverKontribusiFreq = waiverChecked ? roundUSD(waiverKontribusiAnnual / freq) : 0;
+    }
+
+    // Total Kontribusi Dasar & Rider (sum of per-frequency kontribusi only, NOT ujrah)
+    var totalKontribusiFreq = kontribusiDasarFreq + ciKontribusiFreq + waiverKontribusiFreq;
+
+    // Format functions based on currency
+    var fmtKontribusi = currency === 'IDR' ? formatRupiah : formatUSD;
+    var fmtUjrah = currency === 'IDR' ? formatRupiah : formatUSDDecimal;
     var freqLabel = getFreqLabel(freq);
 
     // Build results HTML
     var html = '';
     html += '<div class="calc-info-box" style="margin-top:5px">';
-    html += '<h4 style="color:#006838;margin-bottom:12px">Hasil Perhitungan (' + freqLabel + ')</h4>';
+    html += '<h4 style="color:#006838;margin-bottom:12px">Hasil Perhitungan</h4>';
 
     // Base
     html += '<div style="padding:10px 0;border-bottom:1px solid rgba(0,167,88,0.2)">';
-    html += '<p style="font-weight:600;color:#00a758;margin-bottom:5px">Asuransi Dasar (Santunan ' + formatSantunanLabel(santunan) + ')</p>';
-    html += '<p>Kontribusi (Tabarru\') : <strong>' + formatRupiah(kontribusiDasar) + '</strong></p>';
-    html += '<p>Ujrah (Fee) : <strong>' + formatRupiah(ujrahDasar) + '</strong></p>';
+    html += '<p style="font-weight:600;color:#00a758;margin-bottom:5px">Asuransi Dasar (Santunan ' + fmtKontribusi(santunanRaw).replace(currency === 'IDR' ? 'Rp ' : 'USD ', '') + ')</p>';
+    html += '<p>Kontribusi Dasar (' + freqLabel + ') : <strong>' + fmtKontribusi(kontribusiDasarFreq) + '</strong></p>';
+    html += '<p>Ujrah (Fee) Asuransi Dasar : <strong>' + fmtUjrah(ujrahDasarAnnual) + '</strong> <span style="font-size:.8rem;color:#666">(tahunan)</span></p>';
     html += '</div>';
-
-    // Waiver
-    if (waiverChecked) {
-        html += '<div style="padding:10px 0;border-bottom:1px solid rgba(0,167,88,0.2)">';
-        html += '<p style="font-weight:600;color:#00a758;margin-bottom:5px">Rider: MiSmart Waiver Syariah</p>';
-        html += '<p>Kontribusi (Tabarru\') : <strong>' + formatRupiah(waiverKontribusi) + '</strong></p>';
-        html += '<p>Ujrah (Fee) : <strong>' + formatRupiah(waiverUjrah) + '</strong></p>';
-        html += '</div>';
-    }
 
     // CI
     if (ciChecked) {
         html += '<div style="padding:10px 0;border-bottom:1px solid rgba(0,167,88,0.2)">';
-        html += '<p style="font-weight:600;color:#00a758;margin-bottom:5px">Rider: MiSmart Critical Care Syariah (Santunan ' + formatSantunanLabel(ciSantunan) + ')</p>';
-        html += '<p>Kontribusi (Tabarru\') : <strong>' + formatRupiah(ciKontribusi) + '</strong></p>';
-        html += '<p>Ujrah (Fee) : <strong>' + formatRupiah(ciUjrah) + '</strong></p>';
+        html += '<p style="font-weight:600;color:#00a758;margin-bottom:5px">MiSmart Critical Care Syariah (Santunan ' + fmtKontribusi(ciSantunanRaw).replace(currency === 'IDR' ? 'Rp ' : 'USD ', '') + ')</p>';
+        html += '<p>Kontribusi (' + freqLabel + ') : <strong>' + fmtKontribusi(ciKontribusiFreq) + '</strong></p>';
+        html += '<p>Ujrah (Fee) Asuransi Tambahan : <strong>' + fmtUjrah(ciUjrahAnnual) + '</strong> <span style="font-size:.8rem;color:#666">(tahunan)</span></p>';
+        html += '</div>';
+    }
+
+    // Waiver
+    if (waiverChecked) {
+        html += '<div style="padding:10px 0;border-bottom:1px solid rgba(0,167,88,0.2)">';
+        html += '<p style="font-weight:600;color:#00a758;margin-bottom:5px">MiSmart Waiver Syariah</p>';
+        html += '<p>Kontribusi (' + freqLabel + ') : <strong>' + fmtKontribusi(waiverKontribusiFreq) + '</strong></p>';
+        html += '<p>Ujrah (Fee) Asuransi Tambahan : <strong>' + fmtUjrah(waiverUjrahAnnual) + '</strong> <span style="font-size:.8rem;color:#666">(tahunan)</span></p>';
         html += '</div>';
     }
 
     // Total
     html += '<div style="padding:12px 0;margin-top:5px">';
-    html += '<p style="font-weight:700;font-size:1.1rem;color:#006838">TOTAL per ' + freqLabel + ':</p>';
-    html += '<p style="font-size:1rem">Total Kontribusi (Tabarru\') : <strong style="color:#00a758;font-size:1.05rem">' + formatRupiah(totalKontribusi) + '</strong></p>';
-    html += '<p style="font-size:1rem">Total Ujrah (Fee) : <strong style="color:#00a758;font-size:1.05rem">' + formatRupiah(totalUjrah) + '</strong></p>';
-    html += '<p style="font-size:1.1rem;margin-top:8px;padding-top:8px;border-top:2px solid #00a758"><strong>Grand Total : </strong><strong style="color:#006838;font-size:1.2rem">' + formatRupiah(grandTotal) + '</strong></p>';
+    html += '<p style="font-weight:700;font-size:1.1rem;color:#006838">Total Kontribusi Dasar & Rider (' + freqLabel + '):</p>';
+    html += '<p style="font-size:1.2rem;margin-top:5px"><strong style="color:#006838;font-size:1.3rem">' + fmtKontribusi(totalKontribusiFreq) + '</strong></p>';
+
+    // Show all frequency breakdowns
+    if (freq === 1) {
+        var semTotal, kuarTotal, bulTotal;
+        if (currency === 'IDR') {
+            semTotal = roundIDR(kontribusiDasarAnnual/2) + (ciChecked ? roundIDR(ciKontribusiAnnual/2) : 0) + (waiverChecked ? roundIDR(waiverKontribusiAnnual/2) : 0);
+            kuarTotal = roundIDR(kontribusiDasarAnnual/4) + (ciChecked ? roundIDR(ciKontribusiAnnual/4) : 0) + (waiverChecked ? roundIDR(waiverKontribusiAnnual/4) : 0);
+            bulTotal = roundIDR(kontribusiDasarAnnual/12) + (ciChecked ? roundIDR(ciKontribusiAnnual/12) : 0) + (waiverChecked ? roundIDR(waiverKontribusiAnnual/12) : 0);
+        } else {
+            semTotal = roundUSD(kontribusiDasarAnnual/2) + (ciChecked ? roundUSD(ciKontribusiAnnual/2) : 0) + (waiverChecked ? roundUSD(waiverKontribusiAnnual/2) : 0);
+            kuarTotal = roundUSD(kontribusiDasarAnnual/4) + (ciChecked ? roundUSD(ciKontribusiAnnual/4) : 0) + (waiverChecked ? roundUSD(waiverKontribusiAnnual/4) : 0);
+            bulTotal = roundUSD(kontribusiDasarAnnual/12) + (ciChecked ? roundUSD(ciKontribusiAnnual/12) : 0) + (waiverChecked ? roundUSD(waiverKontribusiAnnual/12) : 0);
+        }
+        html += '<p style="font-size:.85rem;color:#555;margin-top:5px">Semesteran: ' + fmtKontribusi(semTotal) + ' | Kuartalan: ' + fmtKontribusi(kuarTotal) + ' | Bulanan: ' + fmtKontribusi(bulTotal) + '</p>';
+    }
+
+    html += '<p style="font-size:.85rem;color:#555;margin-top:8px">Masa Pembayaran Kontribusi: <strong>' + (110 - age) + ' tahun</strong></p>';
     html += '</div>';
+
+    // Top Up info
+    if (topUpRaw > 0) {
+        html += '<div style="padding:10px 0;border-top:1px solid rgba(0,167,88,0.2)">';
+        html += '<p style="font-size:.9rem;color:#333">Top Up Berkala (' + freqLabel + '): <strong>' + fmtKontribusi(topUpRaw) + '</strong></p>';
+        html += '</div>';
+    }
+
+    // USD minimum warning
+    if (currency === 'USD' && totalKontribusiFreq < 34) {
+        html += '<div style="padding:10px;margin-top:10px;background:#fff3cd;border:1px solid #ffc107;border-radius:6px">';
+        html += '<p style="color:#856404;font-size:.9rem;margin:0"><strong>Perhatian:</strong> Minimum Kontribusi Dasar & Rider untuk produk ini adalah USD 34.</p>';
+        html += '</div>';
+    }
 
     html += '</div>';
 
     document.getElementById('missionCalcResults').innerHTML = html;
 };
-
-function formatSantunanLabel(val) {
-    if (val >= 1000000000) {
-        var m = val / 1000000000;
-        return (m % 1 === 0 ? m : m.toFixed(1).replace('.0','')) + ' Milyar';
-    }
-    return (val / 1000000).toLocaleString('id-ID') + ' Juta';
-}
 
 populateMissionUsia();
 hitungMission();

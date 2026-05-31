@@ -1,0 +1,7 @@
+{
+  "task_id": "task-rewrite-kalkulator-premi-v2",
+  "task_description": "Completely rewrite the Kalkulator Premi tab in index.html to match official MiPOS data precisely with correct rates, IDR/USD support, free-text input, exponential interpolation, and proper rounding",
+  "status": "in_progress",
+  "feature_order": ["FEAT-001"],
+  "blocked_reason": null
+}

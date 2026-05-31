@@ -1,0 +1,48 @@
+{
+  "id": "FEAT-001",
+  "type": "fix",
+  "description": "Completely rewrite the Kalkulator Premi tab in index.html to match official MiPOS data precisely. Replace the entire tab-kalkulator section HTML and its JavaScript IIFE with a new implementation supporting IDR/USD currencies, free-text santunan input, correct rate tables, proper rounding, Top Up Berkala, Masa Pembayaran Kontribusi display, and exponential interpolation.",
+  "status": "in_progress",
+  "steps": [
+    "Replace the HTML content of <div class='tab-content' id='tab-kalkulator'> (lines 479 onwards until the closing </div> before tab-ilustrasi) with new calculator UI containing: (1) Mata Uang toggle IDR/USD, (2) Jenis Kelamin select, (3) Usia Masuk select 18-70, (4) Santunan Asuransi free-text input with validation (IDR min 100jt max 99.9M, USD min 40000), (5) Mode Pembayaran select, (6) Top Up Berkala optional input with per-frequency minimums (IDR: 1jt/500rb/250rb/100rb for tahunan/sem/kuar/bul; USD: 100/50/25/10), (7) Masa Pembayaran Kontribusi display (110-usia, greyed out), (8) Pilihan Masa Asuransi Tambahan select (default 'Sama seperti Kontribusi Dasar', adds 60/70/80/90 options when waiver is checked), (9) Checkbox MiSmart Critical Care Syariah with santunan input (IDR min 20jt, USD min 2000, max 3x base), (10) Checkbox MiSmart Waiver Syariah",
+    "Replace the entire IIFE JavaScript block for the calculator (starting from '// ============ KALKULATOR KONTRIBUSI MiSSION Syariah ============') with new implementation that uses EXACT verified rate data points and exponential interpolation between them",
+    "Implement IDR rate tables (per 1 Milyar santunan, annual): kontribusiDasar pria {31:8140000, 45:14830000}, wanita {37:8750000, 59:30970000}; ujrahDasar pria {31:130000, 45:350000}, wanita {37:158308, 59:945560}; ci pria {31:8640000, 45:24630000}, wanita {37:14540000, 59:40860000}; ciUjrah pria {31:152500, 45:617500}, wanita {37:361290, 59:1808288}; waiver pria {31:1115900, 45:5442400}, wanita {37:840308, 59:9615187}; waiverUjrah pria {31:20100, 45:216500}, wanita {37:27231, 59:425611}",
+    "Implement USD rate tables (per 100,000 santunan, annual): kontribusiDasar pria {31:814, 45:1482.22}, wanita {37:875, 59:3096.15}; ujrahDasar pria {31:13, 45:35}, wanita {37:15.825, 59:94.58}; ci pria {31:864, 45:2480}, wanita {37:1466.67, 59:4086.57}; ciUjrah pria {31:15.25, 45:60.8}, wanita {37:36.33, 59:180.84}; waiver pria {31:1480, 45:286.67}, wanita {37:102.5, 59:774.79}; waiverUjrah pria {31:30, 45:13.33}, wanita {37:5, 59:34.19}",
+    "Implement exponential interpolation: rate(age) = rate(knownAge1) * (rate(knownAge2)/rate(knownAge1))^((age-knownAge1)/(knownAge2-knownAge1)). For ages outside the 2 known points, extrapolate using the same exponential growth rate.",
+    "Implement IDR rounding: annual values use Math.round(rawValue/100)*100; frequency division also rounds each component individually with Math.round(annualComponent/freq/100)*100, then sum components for total. Ujrah annual also rounds to nearest 100.",
+    "Implement USD rounding: Math.round(value) for kontribusi amounts (integers). Ujrah displayed to 2 decimal places. For frequency: Math.round(annual/freq) for each component individually, then sum for total.",
+    "Implement calculation flow: (a) compute annual rate for each component using exponential interpolation, (b) scale by santunan amount (IDR: santunan/1000000000, USD: santunan/100000), (c) round annual to nearest 100 for IDR or nearest integer for USD kontribusi, (d) compute per-frequency by dividing annual by freq and rounding per component, (e) sum all per-frequency components for Kontribusi Dasar & Rider total",
+    "Implement output display showing: Kontribusi Dasar per period, Ujrah Asuransi Dasar (annual, not divided by freq), per rider: Kontribusi + Ujrah, Total Kontribusi Dasar & Rider per period, Masa Pembayaran Kontribusi. For USD, show minimum kontribusi warning if total < USD 34.",
+    "Add input formatting: IDR inputs should auto-format with thousand separators (dots), USD inputs with commas. Validate min/max on blur. CI santunan max = 3x base santunan (not 6x).",
+    "IMPORTANT ROUNDING CORRECTION for waiver IDR: The waiver for Pria 31 base 1M shows: tahunan 1,115,900 / semesteran 558,000 / kuartalan 278,900 / bulanan 93,000. Note that 1,115,900/2=557,950 rounds to 558,000; 1,115,900/4=278,975 rounds to 278,900 (floor to 100); 1,115,900/12=92,991.67 rounds to 93,000. This confirms: semesteran uses Math.round(annual/2/100)*100, kuartalan uses Math.floor(annual/4/100)*100, bulanan uses Math.round(annual/12/100)*100. HOWEVER checking Pria 45 CI: 24,630,000/12=2,052,500 but MiPOS shows 2,052,400. And 24,630,000/4=6,157,500 matches. So there may be slight internal rate precision differences. Use Math.round(annual/freq/100)*100 as default for IDR (accepts +/- 100 IDR tolerance)."
+  ],
+  "acceptance_criteria": [
+    "Pria 31, IDR, 1M base, tahunan: kontribusi dasar 8,140,000, ujrah dasar 130,000",
+    "Pria 31, IDR, 1M base, bulanan: kontribusi dasar 678,300",
+    "Pria 31, IDR, 1M base + CI 1M + Waiver, tahunan total kontribusi: 17,895,900 (8,140,000+8,640,000+1,115,900)",
+    "Pria 31, IDR, 1M base + CI 1M + Waiver, semesteran total: 8,948,000, kuartalan: 4,473,900, bulanan: 1,491,300",
+    "Pria 31, USD, 100K base, tahunan: kontribusi 814, ujrah 13",
+    "Pria 31, USD, 100K base + CI 100K + Waiver(base 100K), tahunan total: 1,826 (814+864+148)",
+    "Pria 45, IDR, 1M base + CI 1M + Waiver, tahunan total: 44,902,400 (14,830,000+24,630,000+5,442,400)",
+    "Pria 45, USD, 45K base + CI 2.5K + Waiver, tahunan total: 858 (667+62+129)",
+    "Wanita 37, IDR, 650jt base: kontribusi 5,687,500, ujrah 102,900",
+    "Wanita 37, IDR, 650jt + CI 93jt + Waiver, tahunan total: 7,585,900",
+    "Wanita 37, USD, 40K base + CI 3K + Waiver, tahunan total: 435 (350+44+41)",
+    "Wanita 59, IDR, 777jt base + CI 555jt + Waiver, tahunan total: 54,212,000",
+    "Wanita 59, USD, 234K base + CI 67K + Waiver, tahunan total: 11,798 (7,247+2,738+1,813)",
+    "Masa Pembayaran Kontribusi displays 110-usia correctly (e.g., age 31 shows 79)",
+    "CI max enforced at 3x base santunan",
+    "Calculator supports both IDR and USD with correct minimums",
+    "Top Up Berkala field present with correct minimum validations per frequency"
+  ],
+  "verification": [
+    "Open the HTML file in a text editor and trace through the JavaScript logic manually for Pria 31 IDR 1M scenario to confirm output matches 8,140,000 tahunan",
+    "Verify the rate tables in JavaScript match the exact values specified in the task",
+    "Verify the exponential interpolation formula is correctly implemented",
+    "Verify rounding logic: IDR uses Math.round(val/100)*100, USD uses Math.round(val) for kontribusi",
+    "Verify CI max is 3x (not 6x) base santunan",
+    "Verify all 8 test scenarios from the user's MiPOS data produce correct results within +/-100 IDR or +/-1 USD tolerance"
+  ],
+  "blocked_reason": null,
+  "findings": ""
+}

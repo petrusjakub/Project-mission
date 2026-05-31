@@ -1,0 +1,16 @@
+{
+  "project_type": "Single-page HTML/CSS/JS application for insurance product (MiSSION Syariah)",
+  "language": "HTML/CSS/JavaScript (vanilla, no frameworks)",
+  "build_system": "None - single HTML file, no build step needed",
+  "test_framework": "None - manual verification against known data points from official MiPOS",
+  "build_command": "N/A - static HTML file",
+  "test_command": "N/A - verify by opening in browser or checking JS logic against test cases",
+  "verification_instructions": "Verify calculator output against 8 known test scenarios from official MiPOS data",
+  "snapshot_or_generated_files": null,
+  "setup_instructions": "No setup needed - single HTML file",
+  "environment_constraints": "INTEGRATIONS_ONLY network - no external packages available. All code must be inline in the HTML file.",
+  "contribution_requirements": "Replace ONLY the kalkulator tab content and its JavaScript. Keep all other tabs intact.",
+  "key_patterns": "Single HTML file with inline CSS/JS. Tab system using data-tab attributes. Calculator uses IIFE pattern for scoping. Results rendered to #missionCalcResults div.",
+  "relevant_files": ["/projects/sandbox/Project-mission/index.html"],
+  "directory_structure": "Single file project - index.html contains everything"
+}
